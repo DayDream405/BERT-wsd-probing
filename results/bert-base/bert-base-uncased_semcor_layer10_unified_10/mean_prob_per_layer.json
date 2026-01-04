@@ -1,0 +1,96 @@
+{
+    "positive items": {
+        "layer.0": {
+            "mean_predicted_prob": 0.00016424952837211819,
+            "mean_max_probabilities": 0.0038386586671905185
+        },
+        "layer.1": {
+            "mean_predicted_prob": 0.00016615366474278184,
+            "mean_max_probabilities": 0.003332482602734371
+        },
+        "layer.2": {
+            "mean_predicted_prob": 0.0002539180306188525,
+            "mean_max_probabilities": 0.006325132306315061
+        },
+        "layer.3": {
+            "mean_predicted_prob": 0.0007679339635575806,
+            "mean_max_probabilities": 0.03092014200677325
+        },
+        "layer.4": {
+            "mean_predicted_prob": 0.0009828317900845644,
+            "mean_max_probabilities": 0.026588771222649438
+        },
+        "layer.5": {
+            "mean_predicted_prob": 0.006330302429476798,
+            "mean_max_probabilities": 0.03437951175474975
+        },
+        "layer.6": {
+            "mean_predicted_prob": 0.06254346697661324,
+            "mean_max_probabilities": 0.08005385820690851
+        },
+        "layer.7": {
+            "mean_predicted_prob": 0.19008178208764034,
+            "mean_max_probabilities": 0.2017945420886285
+        },
+        "layer.8": {
+            "mean_predicted_prob": 0.6146803135857603,
+            "mean_max_probabilities": 0.6232562052957797
+        },
+        "layer.9": {
+            "mean_predicted_prob": 0.8344342729594922,
+            "mean_max_probabilities": 0.8344342729594922
+        }
+    },
+    "negative items": {
+        "layer.0": {
+            "mean_predicted_prob": 0.0001893166269818176,
+            "mean_true_prob": 0.00015904168632688124,
+            "mean_max_probabilities": 0.0038308134757886257
+        },
+        "layer.1": {
+            "mean_predicted_prob": 0.00019033035637589283,
+            "mean_true_prob": 0.0001580992549459465,
+            "mean_max_probabilities": 0.0033539137768778295
+        },
+        "layer.2": {
+            "mean_predicted_prob": 0.0002829438831422321,
+            "mean_true_prob": 0.00020216220925206585,
+            "mean_max_probabilities": 0.0062897421063526585
+        },
+        "layer.3": {
+            "mean_predicted_prob": 0.000816529781491532,
+            "mean_true_prob": 0.0003965836952388332,
+            "mean_max_probabilities": 0.030171776436926687
+        },
+        "layer.4": {
+            "mean_predicted_prob": 0.0008995077415592115,
+            "mean_true_prob": 0.0005474417725662641,
+            "mean_max_probabilities": 0.025210009654983878
+        },
+        "layer.5": {
+            "mean_predicted_prob": 0.004777930655247368,
+            "mean_true_prob": 0.0023716230960888355,
+            "mean_max_probabilities": 0.02944198511335451
+        },
+        "layer.6": {
+            "mean_predicted_prob": 0.044007954502483376,
+            "mean_true_prob": 0.019435529816117944,
+            "mean_max_probabilities": 0.06709432852564051
+        },
+        "layer.7": {
+            "mean_predicted_prob": 0.15774852419717184,
+            "mean_true_prob": 0.049584162152889216,
+            "mean_max_probabilities": 0.17720116194173255
+        },
+        "layer.8": {
+            "mean_predicted_prob": 0.44981650909518495,
+            "mean_true_prob": 0.0930005107079791,
+            "mean_max_probabilities": 0.47048651962541044
+        },
+        "layer.9": {
+            "mean_predicted_prob": 0.6749476721126806,
+            "mean_true_prob": 0.08874078870757905,
+            "mean_max_probabilities": 0.6749476721126806
+        }
+    }
+}
