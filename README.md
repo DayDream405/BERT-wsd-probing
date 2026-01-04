@@ -138,7 +138,7 @@ data/annotations/
 annotation details are provided in:
 
 ```
-annotation_interface
+annotation_interface/
 ```
 
 ## 📊 Result Files
@@ -153,4 +153,5 @@ Including:
 
 - Mean probability per layer
 - m-F1 / M-F1 scores on used test sets
+
 
