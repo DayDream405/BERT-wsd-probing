@@ -1,0 +1,8 @@
+Python == 3.10.0
+# PyTorch == 2.6.0 Please install the torch version compatible with your machine
+Transformers == 4.53.0
+numpy == 2.2.4
+tqdm == 4.67.1
+matplotlib == 3.10.1
+scikit-learn == 1.6.1
+joblib == 1.4.2
