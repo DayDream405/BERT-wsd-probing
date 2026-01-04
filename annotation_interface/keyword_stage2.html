@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyword Annotation Tool</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .description {
+            color: #7f8c8d;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        .data-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        #loadDataBtn {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        #loadDataBtn:hover {
+            background-color: #2980b9;
+        }
+        
+        #exportDataBtn {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        #exportDataBtn:hover {
+            background-color: #27ae60;
+        }
+        
+        .file-info {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .progress {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #7f8c8d;
+        }
+        
+        .context-section {
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            color: #3498db;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 8px;
+        }
+        
+        .context {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            line-height: 1.8;
+            font-size: 17px;
+            cursor: pointer;
+        }
+        
+        .context-word {
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            display: inline-block;
+            margin: 1px;
+        }
+        
+        .context-word:hover {
+            background-color: #e3f2fd;
+        }
+        
+        .context-word.selected {
+            background-color: #ffeb3b;
+            font-weight: bold;
+        }
+        
+        .target-word {
+            background-color: #ffeb3b;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #333;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .target-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #f0f7ff;
+            border-radius: 8px;
+        }
+        
+        .target-label {
+            font-weight: bold;
+            margin-right: 10px;
+            color: #2980b9;
+        }
+        
+        .target-display {
+            font-size: 20px;
+            font-weight: bold;
+            color: #e74c3c;
+            padding: 5px 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .keywords-section {
+            margin-bottom: 30px;
+        }
+        
+        .keywords-info {
+            background-color: #f0f7ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #2980b9;
+        }
+        
+        .selected-keywords {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .selected-keywords-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .keyword-tag {
+            display: inline-block;
+            background-color: #e1f5fe;
+            color: #0288d1;
+            padding: 5px 10px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .keyword-tag:hover {
+            background-color: #0288d1;
+            color: white;
+        }
+        
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        #resetBtn {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+        
+        #resetBtn:hover {
+            background-color: #d0d0d0;
+        }
+        
+        #prevBtn {
+            background-color: #95a5a6;
+            color: white;
+        }
+        
+        #prevBtn:hover {
+            background-color: #7f8c8d;
+        }
+        
+        #nextBtn {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        #nextBtn:hover {
+            background-color: #2980b9;
+        }
+        
+        #saveBtn {
+            background-color: #9b59b6;
+            color: white;
+        }
+        
+        #saveBtn:hover {
+            background-color: #8e44ad;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .result.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        
+        .result.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        
+        .annotation-count {
+            text-align: center;
+            margin-top: 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 600px) {
+            .actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            button {
+                width: 100%;
+            }
+            
+            .data-controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Keyword Annotation Tool</h1>
+            <p class="description">Click on words in the context to select the words that most influence the meaning of the target word or have the greatest impact when determining candidate meanings</p>
+            
+            <div class="data-controls">
+                <input type="file" id="fileInput" accept=".json" style="display: none">
+                <button id="loadDataBtn">Select JSON File</button>
+                <button id="exportDataBtn">Export Annotations</button>
+            </div>
+            <div class="file-info" id="fileInfo">No file selected</div>
+            
+            <div class="progress">
+                Progress: <span id="currentIndex">0</span> / <span id="totalItems">0</span>
+            </div>
+        </header>
+        
+        <div class="context-section">
+            <h2 class="section-title">
+                <i>📖</i> Context
+            </h2>
+            <div class="context" id="context">
+                Click "Select JSON File" button to load data
+            </div>
+        </div>
+        
+        <div class="target-section">
+            <span class="target-label">Target Word:</span>
+            <span class="target-display" id="targetWord">-</span>
+        </div>
+        
+        <div class="keywords-section">
+            <div class="keywords-info">
+                Click on words in the context to select the words that most influence the meaning of the target word (no limit on quantity)
+            </div>
+            <div class="context" id="context-keywords">
+                <!-- Clickable context will be dynamically generated via JavaScript -->
+            </div>
+            <div class="selected-keywords">
+                <div class="selected-keywords-title">Selected Keywords (<span id="selectedCount">0</span>):</div>
+                <div id="selectedKeywordsList"></div>
+            </div>
+        </div>
+        
+        <div class="result" id="resultMessage"></div>
+        
+        <div class="actions">
+            <button id="resetBtn">Reset Selection</button>
+            <button id="prevBtn">Previous</button>
+            <button id="saveBtn">Save & Continue</button>
+            <button id="nextBtn">Next</button>
+        </div>
+        
+        <div class="annotation-count">
+            Annotated: <span id="annotationCount">0</span> items
+        </div>
+        
+        <footer>
+            <p>Keyword Annotation Tool &copy; 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        // Annotation data
+        let annotationData = [];
+        let currentIndex = 0;
+        let selectedKeywords = [];
+        let annotationCount = 0;
+        let currentFileName = '';
+
+        // DOM elements
+        const contextElement = document.getElementById('context');
+        const targetWordElement = document.getElementById('targetWord');
+        const resetBtn = document.getElementById('resetBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const loadDataBtn = document.getElementById('loadDataBtn');
+        const exportDataBtn = document.getElementById('exportDataBtn');
+        const resultMessage = document.getElementById('resultMessage');
+        const annotationCountElement = document.getElementById('annotationCount');
+        const currentIndexElement = document.getElementById('currentIndex');
+        const totalItemsElement = document.getElementById('totalItems');
+        const fileInput = document.getElementById('fileInput');
+        const fileInfo = document.getElementById('fileInfo');
+        const contextKeywordsElement = document.getElementById('context-keywords');
+        const selectedKeywordsList = document.getElementById('selectedKeywordsList');
+        const selectedCountElement = document.getElementById('selectedCount');
+
+        // Initialize page
+        function initializePage() {
+            // Set event listeners
+            resetBtn.addEventListener('click', resetSelection);
+            prevBtn.addEventListener('click', showPreviousItem);
+            nextBtn.addEventListener('click', showNextItem);
+            saveBtn.addEventListener('click', saveAndContinue);
+            loadDataBtn.addEventListener('click', loadData);
+            exportDataBtn.addEventListener('click', exportData);
+            fileInput.addEventListener('change', handleFileSelect);
+            
+            // Update annotation count
+            updateAnnotationCount();
+        }
+        
+        // Load data
+        function loadData() {
+            fileInput.click();
+        }
+        
+        // Handle file selection
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            currentFileName = file.name;
+            fileInfo.textContent = `Selected file: ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    // Validate data format
+                    if (!Array.isArray(data)) {
+                        throw new Error('Invalid data format: expected JSON array');
+                    }
+                    
+                    annotationData = data.map(item => ({
+                        ...item,
+                        keywords: item.keywords || []
+                    }));
+                    
+                    // Reset index
+                    currentIndex = 0;
+                    
+                    // Update display
+                    updateDisplay();
+                    
+                    showResult(`Data loaded successfully! ${annotationData.length} items`, 'success');
+                } catch (error) {
+                    showResult('File parsing error: ' + error.message, 'error');
+                    console.error('Parsing error:', error);
+                }
+            };
+            reader.onerror = function() {
+                showResult('Failed to read file', 'error');
+            };
+            reader.readAsText(file);
+        }
+        
+        // Update display
+        function updateDisplay() {
+            if (annotationData.length === 0) {
+                contextElement.innerHTML = 'Click "Select JSON File" button to load data';
+                targetWordElement.textContent = '-';
+                currentIndexElement.textContent = '0';
+                totalItemsElement.textContent = '0';
+                return;
+            }
+            
+            const currentItem = annotationData[currentIndex];
+            
+            // Set context with highlighted target word
+            const highlightedContext = currentItem.context.replace(
+                new RegExp(currentItem.target, 'g'), 
+                `<span class="target-word">${currentItem.target}</span>`
+            );
+            contextElement.innerHTML = highlightedContext;
+            
+            // Set target word
+            targetWordElement.textContent = currentItem.target;
+            
+            // Create clickable context
+            createClickableContext();
+            
+            // Restore selected keywords
+            selectedKeywords = currentItem.keywords || [];
+            updateSelectedKeywordsDisplay();
+            
+            // Update progress
+            currentIndexElement.textContent = currentIndex + 1;
+            totalItemsElement.textContent = annotationData.length;
+            
+            // Update button states
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === annotationData.length - 1;
+        }
+        
+        // Select keyword
+        function selectKeyword(word) {
+            // If already selected, deselect it
+            if (selectedKeywords.includes(word)) {
+                selectedKeywords = selectedKeywords.filter(w => w !== word);
+                updateSelectedKeywordsDisplay();
+                return;
+            }
+            
+            // Add keyword (no quantity limit)
+            selectedKeywords.push(word);
+            updateSelectedKeywordsDisplay();
+        }
+        
+        // Update selected keywords display
+        function updateSelectedKeywordsDisplay() {
+            selectedKeywordsList.innerHTML = '';
+            selectedCountElement.textContent = selectedKeywords.length;
+            
+            selectedKeywords.forEach(word => {
+                const keywordTag = document.createElement('span');
+                keywordTag.className = 'keyword-tag';
+                keywordTag.textContent = word;
+                keywordTag.addEventListener('click', () => removeKeyword(word));
+                selectedKeywordsList.appendChild(keywordTag);
+            });
+        }
+        
+        // Remove keyword
+        function removeKeyword(word) {
+            selectedKeywords = selectedKeywords.filter(w => w !== word);
+            updateSelectedKeywordsDisplay();
+            updateContextKeywordsSelection();
+        }
+        
+        // Create clickable context
+        function createClickableContext() {
+            const currentItem = annotationData[currentIndex];
+            // Use more precise word segmentation, preserving punctuation
+            const words = currentItem.context.split(/(\s+|[.,!?;:])/).filter(word => word.trim() !== '');
+            
+            contextKeywordsElement.innerHTML = '';
+            
+            words.forEach(word => {
+                if (word.trim() === '') {
+                    contextKeywordsElement.innerHTML += word;
+                } else {
+                    const isTarget = word === currentItem.target;
+                    const isSelected = selectedKeywords.includes(word);
+                    const wordElement = document.createElement('span');
+                    wordElement.className = `context-word ${isTarget ? 'target-word' : ''} ${isSelected ? 'selected' : ''}`;
+                    wordElement.textContent = word;
+                    
+                    if (!isTarget && !/[.,!?;:\s]/.test(word)) {
+                        wordElement.style.cursor = 'pointer';
+                        wordElement.addEventListener('click', () => selectKeyword(word));
+                    } else {
+                        wordElement.style.cursor = 'default';
+                    }
+                    
+                    contextKeywordsElement.appendChild(wordElement);
+                    
+                    // Add space (except for punctuation)
+                    if (!/[.,!?;:]$/.test(word)) {
+                        contextKeywordsElement.appendChild(document.createTextNode(' '));
+                    }
+                }
+            });
+        }
+        
+        // Update keyword selection in context
+        function updateContextKeywordsSelection() {
+            const words = contextKeywordsElement.querySelectorAll('.context-word');
+            words.forEach(wordElement => {
+                const word = wordElement.textContent.trim();
+                if (selectedKeywords.includes(word)) {
+                    wordElement.classList.add('selected');
+                } else {
+                    wordElement.classList.remove('selected');
+                }
+            });
+        }
+        
+        // Reset selection
+        function resetSelection() {
+            selectedKeywords = [];
+            updateSelectedKeywordsDisplay();
+            updateContextKeywordsSelection();
+            
+            resultMessage.className = 'result';
+            resultMessage.style.display = 'none';
+        }
+        
+        // Save and continue
+        function saveAndContinue() {
+            // Save keyword selection
+            annotationData[currentIndex].keywords = [...selectedKeywords];
+            
+            // Update annotation count (count if there are any selections)
+            if (selectedKeywords.length > 0) {
+                updateAnnotationCount();
+            }
+            
+            // Automatically go to next
+            if (currentIndex < annotationData.length - 1) {
+                currentIndex++;
+                updateDisplay();
+                showResult('Saved, moving to next item', 'success');
+            } else {
+                showResult('All data has been annotated!', 'success');
+            }
+        }
+        
+        // Show previous item
+        function showPreviousItem() {
+            if (currentIndex > 0) {
+                // Save current data first
+                annotationData[currentIndex].keywords = [...selectedKeywords];
+                
+                currentIndex--;
+                updateDisplay();
+            }
+        }
+        
+        // Show next item
+        function showNextItem() {
+            if (currentIndex < annotationData.length - 1) {
+                // Save current data first
+                annotationData[currentIndex].keywords = [...selectedKeywords];
+                
+                currentIndex++;
+                updateDisplay();
+            }
+        }
+        
+        // Export data
+        function exportData() {
+            if (annotationData.length === 0) {
+                showResult('No data to export', 'error');
+                return;
+            }
+            
+            // Ensure current data is saved
+            annotationData[currentIndex].keywords = [...selectedKeywords];
+            
+            // Create data copy
+            const exportData = JSON.parse(JSON.stringify(annotationData));
+            
+            // Create Blob object
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+            
+            // Create download link
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = currentFileName ? `keywords_annotated_${currentFileName}` : 'keywords_annotated_data.json';
+            document.body.appendChild(a);
+            a.click();
+            
+            // Cleanup
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 0);
+            
+            showResult('Data exported successfully!', 'success');
+        }
+        
+        // Show result message
+        function showResult(message, type) {
+            resultMessage.textContent = message;
+            resultMessage.className = `result ${type}`;
+            resultMessage.style.display = 'block';
+            
+            // Auto-hide success messages after 3 seconds
+            if (type === 'success') {
+                setTimeout(() => {
+                    resultMessage.style.display = 'none';
+                }, 3000);
+            }
+        }
+        
+        // Update annotation count
+        function updateAnnotationCount() {
+            if (annotationData.length === 0) {
+                annotationCount = 0;
+            } else {
+                annotationCount = annotationData.filter(item => 
+                    item.keywords && item.keywords.length > 0
+                ).length;
+            }
+            annotationCountElement.textContent = annotationCount;
+        }
+        
+        // Initialize page
+        initializePage();
+    </script>
+</body>
+</html>
