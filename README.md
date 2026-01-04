@@ -87,7 +87,7 @@ Scripts for supervised fine-tuning BERT-like models are located in:
 ```bash
 python main.py --task train \
   --train_data path/to/train.json \
-  --artifacts outputs/run1 \
+  --artifacts artifacts/model_artifacts \
   --orig_data SemCor
 ```
 
@@ -153,5 +153,6 @@ Including:
 
 - Mean probability per layer
 - m-F1 / M-F1 scores on used test sets
+
 
 
