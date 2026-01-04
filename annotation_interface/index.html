@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Sense Disambiguation Annotation Tool</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Word Sense Disambiguation Annotation Tool</h1>
+            <p class="description">Please read the context and select the correct meaning of the target word</p>
+            
+            <div class="stage-indicator">
+                <div class="stage active" id="stage1">1. Sense Selection</div>
+                <div class="stage" id="stage2">2. Difficulty Assessment</div>
+                <div class="stage" id="stage3">3. Keyword Annotation</div>
+            </div>
+            
+            <div class="data-controls">
+                <input type="file" id="fileInput" accept=".json" style="display: none">
+                <button id="loadDataBtn">Select JSON File</button>
+                <button id="exportDataBtn">Export Results</button>
+            </div>
+            <div class="file-info" id="fileInfo">No file selected</div>
+            
+            <div class="progress">
+                Progress: <span id="currentIndex">0</span> / <span id="totalItems">0</span>
+            </div>
+        </header>
+        
+        <!-- Stage 1: Sense Selection -->
+        <div id="stage1-content">
+            <div class="context-section">
+                <h2 class="section-title">
+                    <i>📖</i> Context
+                </h2>
+                <div class="context" id="context">
+                    Please click "Select JSON File" to load annotation data
+                </div>
+            </div>
+            
+            <div class="target-section">
+                <span class="target-label">Target word:</span>
+                <span class="target-display" id="targetWord">-</span>
+            </div>
+
+            <!-- Options text display area -->
+            <div class="options-text-display" id="optionsTextDisplay">
+                <!-- Option text will be dynamically generated -->
+            </div>
+
+            <div class="options-section">
+                <h2 class="section-title">
+                    <i>✅</i> Candidate Senses
+                </h2>
+                <div class="options-grid" id="optionsContainer">
+                    <!-- Options will be dynamically generated -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stage 2: Difficulty Assessment -->
+        <div id="stage2-content" style="display: none;">
+            <div class="difficulty-section">
+                <h2 class="section-title">
+                    <i>📊</i> Disambiguation Difficulty Assessment
+                </h2>
+                <div class="difficulty-options">
+                    <div class="difficulty-option" data-level="1">
+                        <div class="difficulty-level">1. Goblin</div>
+                        <div class="difficulty-desc">This annotation does not require distinguishing between word senses or performing word sense disambiguation, e.g., only one candidate sense exists</div>
+                    </div>
+                    <div class="difficulty-option" data-level="2">
+                        <div class="difficulty-level">2. Easy</div>
+                        <div class="difficulty-desc">The answer can be selected immediately after reading the context, without re-reading or comparing options</div>
+                    </div>
+                    <div class="difficulty-option" data-level="3">
+                        <div class="difficulty-level">3. Difficult</div>
+                        <div class="difficulty-desc">The answer cannot be determined immediately after reading the context; requires additional thought, re-reading, or comparing candidate options</div>
+                    </div>
+                    <div class="difficulty-option" data-level="4">
+                        <div class="difficulty-level">4. Impossible</div>
+                        <div class="difficulty-desc">Cannot determine the answer, usually due to insufficient context information, ambiguous context, or multiple plausible answers because candidate senses are too similar</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stage 3: Keyword Annotation -->
+        <div id="stage3-content" style="display: none;">
+            <div class="keywords-section">
+                <h2 class="section-title">
+                    <i>🔑</i> Keyword Annotation
+                </h2>
+                <div class="keywords-info">
+                    Click words in the context to select the three most influential words for determining the target word's sense (order matters: earlier positions indicate higher importance)
+                </div>
+                <div class="context" id="context-keywords">
+                    <!-- Clickable context will be dynamically generated -->
+                </div>
+                <div class="selected-keywords">
+                    <div class="selected-keywords-title">Selected Keywords (<span id="selectedCount">0</span>/3):</div>
+                    <div id="selectedKeywordsList"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="result" id="resultMessage"></div>
+        
+        <div class="actions">
+            <button id="resetBtn">Reset Selection</button>
+            <button id="prevBtn">Previous</button>
+            <button id="nextBtn">Next</button>
+            <button id="continueBtn" style="display: none;">Continue</button>
+        </div>
+        
+        <div class="annotation-count">
+            Annotated: <span id="annotationCount">0</span> items
+        </div>
+        
+        <footer>
+            <p>Word Sense Disambiguation Annotation Tool &copy; 2025</p>
+        </footer>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
