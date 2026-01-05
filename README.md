@@ -120,7 +120,7 @@ python main.py --task prob \
 
 #### Compute WHR
 
-```
+```bash
 python main.py --task whr \
   --model path/to/model
 ```
@@ -160,5 +160,6 @@ Including:
 
 - Mean probability per layer
 - m-F1 / M-F1 scores on used test sets
+
 
 
