@@ -222,7 +222,7 @@ class WSDTrainer:
             save_training_artifacts(train_data, val_data, self.label_encoder, self.tokenizer, f"training_artifacts_{self.config.MODEL_ID}")
 
         #keyword replacement
-        # with open('annotated/keywords_annotated_bert_same_accuracy0_filtered_semcor_5.json', 'r') as f:
+        # with open('data\annotations\only_annoted_semcor_key_context.json', 'r') as f:
         #     annotated_data = json.load(f)
         # count = 0
         # for item in train_data:
@@ -409,11 +409,6 @@ class WSDTrainer:
             # Only save the model from the last round
             if epoch == self.config.EPOCHS - 1:
                 self.save_model('final', loss=avg_loss)
-        
-        # # 训练结束后保存监控数据
-        # if self.monitor:
-        #     self.monitor.save_monitor_data()
-        #     self.monitor.cleanup()
     
     def evaluate(self):
         self.model.eval()

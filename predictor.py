@@ -271,7 +271,6 @@ class WSDPredictor:
             'layer_attention_distribution': []
         }
         
-        # 分析每层的注意力分布
         for layer_attn in attention_info['layer_normalized_attentions']:
             layer_idx = layer_attn['layer_index']
             
@@ -352,8 +351,6 @@ class WSDPredictor:
                 for key in item["correct_definition_key"]:
                     train_keys.add(key)
 
-            # with open('bert-base-uncased_original_0.75semcor_second_unified_dropped_classes.json', 'r') as f:
-            #     retained_classes = json.load(f)
             with open('bert_same_accuracy_other.json', 'r') as f:
                 retained_classes = json.load(f)
             filtered_test_data = []
@@ -551,7 +548,6 @@ class HookBasedMasker:
             handle = module.register_forward_hook(hook)
             self.hooks.append(handle)
             self.masking_strategies[name] = (mask_strategy, mask_strength)
-            print(f"为层 {name} 添加{mask_strategy} mask")
     
     def _create_masking_hook(self, layer_name, strategy, strength):
         def masking_hook(module, input, output):
@@ -581,7 +577,6 @@ class HookBasedMasker:
         return masking_hook
     
     def _apply_mask_to_tensor(self, tensor, strategy, strength):
-        """对单个Tensor应用mask"""
         if strategy == "zero":
             masked_tensor = torch.zeros_like(tensor)
             return tensor * (1 - strength) + masked_tensor * strength
