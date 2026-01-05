@@ -18,8 +18,8 @@ project-root/
 ├── data/
 │   ├── semcor
 │   ├── semcor_5
-│   ├── omsti_40
-│   ├── omsti_80
+│   ├── omsti-40
+│   ├── omsti-80
 │   └── annotations/
 |	|	├──annotated_data_stage1
 |	|	├──annotated_data_stage1_analysis
@@ -27,14 +27,16 @@ project-root/
 │
 ├── annotation interface/
 │   ├── index.html
+|   ├── keyword.html
+|
 ├── results/
 │   ├── bert/
 │   └── roberta/
 │
 ├── sense_categories/
-│   ├── S_acc0
-│   ├── S_acc1
-│   └── S_var
+│   ├── s_acc0
+│   ├── s_acc1
+│   └── s_var
 |
 ├── training.py
 |
@@ -158,4 +160,5 @@ Including:
 
 - Mean probability per layer
 - m-F1 / M-F1 scores on used test sets
+
 
