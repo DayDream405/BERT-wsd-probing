@@ -31,6 +31,11 @@ project-root/
 │   ├── bert/
 │   └── roberta/
 │
+├── sense_categories/
+│   ├── S_acc0
+│   ├── S_acc1
+│   └── S_var
+|
 ├── training.py
 |
 ├── predictor.py
@@ -87,7 +92,7 @@ Scripts for supervised fine-tuning BERT-like models are located in:
 ```bash
 python main.py --task train \
   --train_data path/to/train.json \
-  --artifacts artifacts/model_artifacts \
+  --artifacts outputs/run1 \
   --orig_data SemCor
 ```
 
@@ -138,7 +143,7 @@ data/annotations/
 annotation details are provided in:
 
 ```
-annotation_interface/
+annotation_interface
 ```
 
 ## 📊 Result Files
@@ -153,6 +158,4 @@ Including:
 
 - Mean probability per layer
 - m-F1 / M-F1 scores on used test sets
-
-
 
